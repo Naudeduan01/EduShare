@@ -12,7 +12,7 @@ async function criarTrabalho(trabalho) {
         (
             titulo,
             descricao,
-            categoria,
+            categoria_id,
             criador_id
         )
         VALUES
@@ -27,7 +27,7 @@ async function criarTrabalho(trabalho) {
         [
             trabalho.titulo,
             trabalho.descricao,
-            trabalho.categoria,
+            trabalho.categoria_id,
             trabalho.criador_id
         ]
     );
@@ -80,10 +80,22 @@ async function excluirTrabalho(id) {
     );
     return resultado.rows[0];
 }
+async function buscarPorId(id) {
+    const resultado = await pool.query(
+        `
+        SELECT *
+        FROM trabalhos
+        WHERE id = $1;
+        `,
+        [id]
+    );
+    return resultado.rows[0];
+}
 module.exports = {
     listarTrabalhos,
     criarTrabalho,
     buscarTrabalhoPorId,
     atualizarTrabalho,
-    excluirTrabalho
+    excluirTrabalho,
+    buscarPorId
 };

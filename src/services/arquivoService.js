@@ -8,12 +8,16 @@ async function listarArquivosPorTrabalho(trabalhoId){
 async function excluirArquivo(id){
     return await arquivoRepository.excluirArquivo(id);
 }
-async function buscarArquivoPorId(id) {
+async function buscarArquivoPorId(id){
     return await arquivoRepository.buscarArquivoPorId(id);
+}
+async function buscarArquivoComDono(id){
+    return await arquivoRepository.buscarArquivoComDono(id);
 }
 module.exports = {
     salvarArquivo,
     listarArquivosPorTrabalho,
     excluirArquivo,
-    buscarArquivoPorId
+    buscarArquivoPorId,
+    buscarArquivoComDono
 };

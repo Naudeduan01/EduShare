@@ -1,3 +1,4 @@
+const autenticar = require("../middlewares/authMiddleware");
 const express = require("express");
 const router = express.Router();
 const upload = require("../config/multer");
@@ -14,6 +15,7 @@ router.get(
 );
 router.delete(
     "/arquivos/:id",
+    autenticar,
     arquivoController.excluirArquivo
 );
 router.get(

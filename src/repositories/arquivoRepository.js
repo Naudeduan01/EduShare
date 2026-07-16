@@ -58,9 +58,25 @@ async function buscarArquivoPorId(id) {
     );
     return resultado.rows[0];
 }
+async function buscarArquivoComDono(id) {
+    const resultado = await pool.query(
+        `
+        SELECT
+            arquivos.*,
+            trabalhos.criador_id
+        FROM arquivos
+        INNER JOIN trabalhos
+        ON arquivos.trabalho_id = trabalhos.id
+        WHERE arquivos.id = $1;
+        `,
+        [id]
+    );
+    return resultado.rows[0];
+}
 module.exports = {
     salvarArquivo,
     listarArquivosPorTrabalho,
     excluirArquivo,
-    buscarArquivoPorId
+    buscarArquivoPorId,
+    buscarArquivoComDono
 };

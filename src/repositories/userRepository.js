@@ -14,9 +14,27 @@ async function buscarUsuarioPorId(id) {
 }
 async function criarUsuario(usuario) {
     const resultado = await pool.query(
-        "INSERT INTO usuarios(nome, idade) VALUES($1, $2) RETURNING *",
+        `
+        INSERT INTO usuarios
+        (
+            nome,
+            email,
+            senha,
+            idade
+        )
+        VALUES
+        (
+            $1,
+            $2,
+            $3,
+            $4
+        )
+        RETURNING *;
+        `,
         [
             usuario.nome,
+            usuario.email,
+            usuario.senha,
             usuario.idade
         ]
     );
@@ -50,10 +68,22 @@ async function deletarUsuario(id) {
     );
     return resultado.rows[0];
 }
+async function buscarPorEmail(email) {
+    const resultado = await pool.query(
+        `
+        SELECT *
+        FROM usuarios
+        WHERE email = $1;
+        `,
+        [email]
+    );
+    return resultado.rows[0];
+}
 module.exports = {
     listarUsuarios,
     buscarUsuarioPorId,
     criarUsuario,
     atualizarUsuario,
-    deletarUsuario
+    deletarUsuario,
+    buscarPorEmail
 };

@@ -14,10 +14,14 @@ async function atualizarTrabalho(id, trabalho) {
 async function excluirTrabalho(id) {
     return await trabalhoRepository.excluirTrabalho(id);
 }
+    async function buscarPorId(id) {
+    return await trabalhoRepository.buscarPorId(id);
+}
 module.exports = {
     listarTrabalhos,
     criarTrabalho,
     buscarTrabalhoPorId,
     atualizarTrabalho,
-    excluirTrabalho
+    excluirTrabalho,
+    buscarPorId
 };

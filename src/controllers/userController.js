@@ -1,3 +1,4 @@
+const removerSenha = require("../utils/removerSenha");
 const userService = require("../services/userService");
 async function listarUsuarios(req, res) {
     const usuarios =
@@ -16,11 +17,21 @@ async function buscarUsuarioPorId(req, res) {
     }
     res.json(usuario);
 }
-async function criarUsuario(req, res) {
-    const novoUsuario = req.body;
-    const usuarioCriado = 
-        await userService.criarUsuario(novoUsuario);
-    res.status(201).json(usuarioCriado);
+async function criarUsuario(req, res, next) {
+    try {
+        const usuario = req.body;
+        if (!usuario.email || !usuario.senha) {
+            return res.status(400).json({
+                mensagem:
+                "Email e senha são obrigatórios"
+            });
+        }
+        const resultado =
+            await userService.criarUsuario(usuario);
+        res.status(201).json(removerSenha(resultado));
+    } catch(error) {
+        next(error);
+    }
 }
 async function atualizarUsuario(req, res) {
     const id = Number(req.params.id);

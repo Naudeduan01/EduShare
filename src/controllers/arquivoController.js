@@ -31,10 +31,15 @@ async function listarArquivosPorTrabalho(req, res, next) {
 async function excluirArquivo(req, res, next) {
     try {
         const arquivo =
-            await arquivoService.excluirArquivo(req.params.id);
+            await arquivoService.buscarArquivoComDono(req.params.id);
         if (!arquivo) {
             return res.status(404).json({
                 mensagem: "Arquivo não encontrado"
+            });
+        }
+        if (arquivo.criador_id !== req.usuario.id) {
+            return res.status(403).json({
+                mensagem: "Você não tem permissão para excluir este arquivo"
             });
         }
         fs.unlink(arquivo.caminho, function (erro) {
@@ -42,6 +47,7 @@ async function excluirArquivo(req, res, next) {
                 console.error(erro);
             }
         });
+        await arquivoService.excluirArquivo(req.params.id);
         res.json({
             mensagem: "Arquivo removido com sucesso"
         });

@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const AppError = require("../errors/AppError");
 const userRepository = require("../repositories/userRepository");
 async function listarUsuarios() {
@@ -15,9 +16,9 @@ async function buscarUsuarioPorId(id) {
     return usuario;
 }
 async function criarUsuario(usuario) {
-    if (!usuario.nome) {
-        throw new Error("Nome é obrigatório");
-    }
+    const senhaCriptografada =
+        await bcrypt.hash(usuario.senha, 10);
+    usuario.senha = senhaCriptografada;
     return await userRepository.criarUsuario(usuario);
 }
 async function atualizarUsuario(id, dadosAtualizados) {
@@ -26,10 +27,14 @@ async function atualizarUsuario(id, dadosAtualizados) {
 async function deletarUsuario(id) {
     return await userRepository.deletarUsuario(id);
 }
+async function buscarPorEmail(email){
+    return await userRepository.buscarPorEmail(email);
+}
 module.exports = {
     listarUsuarios,
     buscarUsuarioPorId,
     criarUsuario,
     atualizarUsuario,
-    deletarUsuario
+    deletarUsuario,
+    buscarPorEmail
 };
