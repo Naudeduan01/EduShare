@@ -1,3 +1,4 @@
+const trabalhoSchema = require("../schemas/trabalhoSchema");
 const trabalhoService = require("../services/trabalhoService");
 async function listarTrabalhos(req, res, next){
     try {
@@ -9,12 +10,14 @@ async function listarTrabalhos(req, res, next){
 }
 async function criarTrabalho(req, res, next) {
     try {
+        trabalhoSchema.parse(req.body);
         const trabalho = {
             titulo: req.body.titulo,
             descricao: req.body.descricao,
             categoria_id: req.body.categoria_id,
             criador_id: req.usuario.id
         };
+        atualizarTrabalho()
         const novoTrabalho =
             await trabalhoService.criarTrabalho(trabalho);
         res.status(201).json(novoTrabalho);

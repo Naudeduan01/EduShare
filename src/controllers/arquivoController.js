@@ -1,3 +1,4 @@
+const arquivoSchema = require("../schemas/arquivoSchema");
 const fs = require("fs");
 const arquivoService = require("../services/arquivoService");
 async function salvarArquivo(req, res, next){
@@ -10,6 +11,9 @@ async function salvarArquivo(req, res, next){
             tipo: req.file.mimetype,
             tamanho: req.file.size
         };
+        arquivoSchema.parse({
+            trabalho_id: Number(req.body.trabalho_id)
+        });
         const resultado = await arquivoService.salvarArquivo(arquivo);
         res.status(201).json(resultado);
     

@@ -1,3 +1,4 @@
+const usuarioSchema = require("../schemas/usuarioSchema");
 const removerSenha = require("../utils/removerSenha");
 const userService = require("../services/userService");
 async function listarUsuarios(req, res) {
@@ -11,21 +12,15 @@ async function buscarUsuarioPorId(req, res) {
     const usuario = 
         await userService.buscarUsuarioPorId(id);
     if (!usuario) {
-        return res.status(404).json({
-            mensagem: "Usuário não encontrado"
-        });
+        const erro = new Error("Usuário não encontrado");
+        erro.status = 404;
+        throw erro;
     }
     res.json(usuario);
 }
 async function criarUsuario(req, res, next) {
     try {
-        const usuario = req.body;
-        if (!usuario.email || !usuario.senha) {
-            return res.status(400).json({
-                mensagem:
-                "Email e senha são obrigatórios"
-            });
-        }
+        usuarioSchema.parse(req.body);
         const resultado =
             await userService.criarUsuario(usuario);
         res.status(201).json(removerSenha(resultado));
