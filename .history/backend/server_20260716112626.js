@@ -1,0 +1,19 @@
+require("dotenv").config();
+const express = require("express");
+require("./src/config/database");
+const userRoutes = require("./src/routes/userRoutes");
+const trabalhoRoutes = require("./src/routes/trabalhoRoutes");
+const errorHandler = require("./src/middlewares/errorHandler");
+const uploadRoutes = require("./src/routes/uploadRoutes");
+const arquivoRoutes = require("./src/routes/arquivoRoutes");
+const app = express();
+app.use(uploadRoutes);
+app.use(arquivoRoutes);
+app.use(express.json());
+app.use(userRoutes);
+app.use(trabalhoRoutes);
+app.use(errorHandler);
+const PORT = 3000;
+app.listen(PORT, function () {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
