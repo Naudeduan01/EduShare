@@ -3,6 +3,11 @@ const fs = require("fs");
 const arquivoService = require("../services/arquivoService");
 async function salvarArquivo(req, res, next){
     try {
+        console.log("REQ.FILE:");
+        console.log(req.file);
+
+        console.log("REQ.BODY:");
+        console.log(req.body);
         const arquivo = {
             trabalho_id: req.params.id,
             nome_original: req.file.originalname,

@@ -8,11 +8,17 @@ const tiposPermitidos = [
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     "application/vnd.ms-powerpoint",
     "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-    "video/mp4"
+    "video/mp4",
+    "text/plain",
+    "image/jpeg",
+    "image/png"
 ];
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, "src/uploads");
+        callback(
+            null,
+            path.join(__dirname, "../uploads")
+        );
     },
     filename: function (req, file, callback) {
         callback(null, Date.now() + path.extname(file.originalname))

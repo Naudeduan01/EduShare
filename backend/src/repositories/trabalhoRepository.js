@@ -1,7 +1,15 @@
 const pool = require("../config/database");
-async function listarTrabalhos(){
+async function listarTrabalhos() {
     const resultado = await pool.query(
-        "SELECT * FROM trabalhos ORDER BY id;"
+        `
+        SELECT
+            trabalhos.*,
+            usuarios.nome AS criador_nome
+        FROM trabalhos
+        LEFT JOIN usuarios
+            ON trabalhos.criador_id = usuarios.id
+        ORDER BY trabalhos.id;
+        `
     );
     return resultado.rows;
 }

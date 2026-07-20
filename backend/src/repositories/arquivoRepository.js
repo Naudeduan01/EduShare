@@ -31,9 +31,9 @@ async function listarArquivosPorTrabalho(trabalhoId) {
         `
         SELECT * FROM arquivos
         WHERE trabalho_id = $1
-        ORDER BY IdleDeadline;
+        ORDER BY created_at;
         `,
-        [trabalhoID]
+        [trabalhoId]
     );
     return resultado.rows;
 }

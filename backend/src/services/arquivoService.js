@@ -3,7 +3,7 @@ async function salvarArquivo(arquivo){
     return await arquivoRepository.salvarArquivo(arquivo);
 }
 async function listarArquivosPorTrabalho(trabalhoId){
-    return await arquivoRepository.listarArquivosPorTrabalho(trabalhoID);
+    return await arquivoRepository.listarArquivosPorTrabalho(trabalhoId);
 }
 async function excluirArquivo(id){
     return await arquivoRepository.excluirArquivo(id);

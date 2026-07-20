@@ -22,9 +22,9 @@ async function criarUsuario(req, res, next) {
     try {
         usuarioSchema.parse(req.body);
         const resultado =
-            await userService.criarUsuario(usuario);
+            await userService.criarUsuario(req.body);
         res.status(201).json(removerSenha(resultado));
-    } catch(error) {
+    } catch (error) {
         next(error);
     }
 }
