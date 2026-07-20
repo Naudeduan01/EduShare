@@ -2,6 +2,7 @@ const userService = require("../services/userService");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 async function login(req, res, next) {
+    console.log(req.body);
     try {
         const { email, senha } = req.body;
         const usuario =

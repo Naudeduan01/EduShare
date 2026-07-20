@@ -17,7 +17,6 @@ async function criarTrabalho(req, res, next) {
             categoria_id: req.body.categoria_id,
             criador_id: req.usuario.id
         };
-        atualizarTrabalho()
         const novoTrabalho =
             await trabalhoService.criarTrabalho(trabalho);
         res.status(201).json(novoTrabalho);
@@ -42,7 +41,7 @@ async function buscarTrabalhoPorId(req, res, next) {
 async function atualizarTrabalho(req, res, next) {
     try {
         const trabalho =
-            await trabalhoService.buscarPorId(req.params.id);
+            await trabalhoService.buscarTrabalhoPorId(req.params.id);
         if (!trabalho) {
             return res.status(404).json({
                 mensagem: "Trabalho não encontrado"
@@ -77,7 +76,7 @@ async function excluirTrabalho(req, res, next) {
                 mensagem: "Você não tem permissão para excluir esse trabalho"
             });
         }
-        await trabalho.service.excluirTrabalho(req.params.id);
+        await trabalhoService.excluirTrabalho(req.params.id);
         res.json({
             mensagem: "Trabalho excluído com sucesso"
         });

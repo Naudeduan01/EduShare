@@ -51,19 +51,15 @@ async function atualizarTrabalho(id, trabalho) {
         SET
             titulo = $1,
             descricao = $2,
-            categoria = $3,
-            criador_id = $4,
-            status = $5,
+            categoria_id = $3,
             updated_at = CURRENT_TIMESTAMP
-        WHERE id = $6
+        WHERE id = $4
         RETURNING *;
         `,
         [
             trabalho.titulo,
             trabalho.descricao,
-            trabalho.categoria,
-            trabalho.criador_id,
-            trabalho.status,
+            trabalho.categoria_id,
             id
         ]
     );
