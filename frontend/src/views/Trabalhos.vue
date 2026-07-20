@@ -13,6 +13,9 @@ async function carregarTrabalhos(){
 function editar(id){
     router.push(`/editar-trabalho/${id}`);
 }
+function abrir(id){
+    router.push(`/trabalhos/${id}`);
+}
 async function remover(id) {
     if (!confirm("Deseja realmente excluir este trabalho?")) {
         return;
@@ -42,6 +45,9 @@ onMounted(()=>{
             Novo Trabalho
         </RouterLink>
     </div>
+    <p class="text-gray-500 mb-4">
+    Apenas o autor do trabalho pode editá-lo ou excluí-lo, porém todos podem compatilhar seus arquivos dentro dos trabalhos
+</p>
     <div
         v-for="trabalho in trabalhos"
         :key="trabalho.id"
@@ -50,10 +56,20 @@ onMounted(()=>{
         <h2 class="text-xl font-bold">
             {{ trabalho.titulo }}
         </h2>
+        <p class="text-sm text-gray-500 mb-2">
+    Criado por:
+    {{ trabalho.criador_nome || "Usuário desconhecido" }}
+</p>
         <p class="text-gray-600 mt-2">
             {{ trabalho.descricao }}
         </p>
         <div class="flex gap-4 mt-4">
+            <button
+                @click="abrir(trabalho.id)"
+                class="bg-blue-600 text-white px-4 py-2 rounded"
+            >
+                Abrir
+            </button>
             <button
                 @click="editar(trabalho.id)"
                 class="bg-yellow-500 text-white px-4 py-2 rounded"

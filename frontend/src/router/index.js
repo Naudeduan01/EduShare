@@ -1,3 +1,4 @@
+import DetalhesTrabalho from "../views/DetalhesTrabalho.vue";
 import NovoTrabalho from "../views/NovoTrabalho.vue";
 import Dashboard from "../views/Dashboard.vue";
 import { createRouter, createWebHistory } from "vue-router";
@@ -5,10 +6,16 @@ import DefaultLayout from "../layouts/DefaultLayout.vue";
 import EditarTrabalho from "../views/EditarTrabalho.vue";
 import Trabalhos from "../views/Trabalhos.vue";
 import Login from "../views/Login.vue";
+import Cadastro from "../views/Cadastro.vue";
+import Arquivos from "../views/Arquivos.vue";
 const routes = [
     {
         path: "/login",
         component: Login
+    },
+    {
+        path: "/cadastro",
+        component: Cadastro
     },
     {
         path: "/",
@@ -40,6 +47,13 @@ const routes = [
                 component: EditarTrabalho,
                 meta: {
                     requiresAuth: true
+                }
+            },
+            {
+                path: "trabalhos/:id",
+                component: DetalhesTrabalho,
+                meta:{
+                    requiresAuth:true
                 }
             },
         ]

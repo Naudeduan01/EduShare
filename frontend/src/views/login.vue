@@ -44,6 +44,14 @@ async function entrar() {
         <p class="text-red-500">
             {{ erro }}
         </p>
+        <div class="mt-4 text-center">
+        <RouterLink
+            to="/cadastro"
+            class="text-blue-600 hover:underline"
+        >
+            Não possui conta? Crie uma agora.
+        </RouterLink>
+        </div>
     </form>
 </div>
 </template>

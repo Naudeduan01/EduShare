@@ -22,6 +22,8 @@ services:
       - .env
     ports:
       - "3000:3000"
+    volumes:
+      - ./backend/src/uploads:/app/src/uploads
   jaeger:
     image: jaegertracing/all-in-one:latest
     container_name: edushare-jaeger
@@ -32,6 +34,16 @@ services:
     - "16686:16686"
     - "4317:4317"
     - "4318:4318"
+  grafana:
+    image: grafana/grafana:latest
+    container_name: edushare-grafana
+    ports:
+      - "3001:3000"
+    depends_on:
+      - jaeger
+    volumes:
+      - grafana_data:/var/lib/grafana
 volumes:
   backend_postgres_data:
     external: true
+  grafana_data:
