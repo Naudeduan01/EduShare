@@ -143,22 +143,20 @@ OpenTelemetry
 ↓
 Jaeger
 
-## Roadmap
+## Deploy Serverless AWS Lambda
 
-- [x] API RESTful
-- [x] CRUD de usuários
-- [x] CRUD de trabalhos
-- [x] Upload de arquivos
-- [x] Autenticação JWT
-- [x] Validação de dados
-- [x] Docker
-- [x] Swagger
-- [x] OpenTelemetry + Jaeger
+A aplicação foi preparada para execução em ambiente serverless utilizando AWS Lambda através do Serverless Framework.
 
-- [ ] Frontend Vue.js
-- [ ] Deploy
-- [ ] Testes automatizados
-- [ ] AWS Lambda
+A arquitetura foi adaptada separando a criação da aplicação Express (`app.js`) do servidor local (`server.js`), permitindo que a mesma API seja executada tanto localmente quanto através de uma função Lambda.
+
+Estrutura:
+
+backend/src
+
+- app.js
+- lambda.js
+
+O arquivo `serverless.yml` contém a configuração da função Lambda e API Gateway.
 
 ## Autor
 
