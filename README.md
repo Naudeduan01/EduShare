@@ -7,8 +7,7 @@ API e aplicação web para compartilhamento de trabalhos acadêmicos.
 O EduShare é uma plataforma desenvolvida para permitir o compartilhamento,
 organização e gerenciamento de trabalhos acadêmicos.
 
-Usuários podem criar trabalhos, categorizar conteúdos, realizar upload de
-arquivos relacionados aos projetos.
+Usuários podem criar, gerenciar e colaborar com trabalhos, organizar conteúdos por categorias e realizar upload de arquivos relacionados aos projetos.
 
 O projeto foi desenvolvido com foco em boas práticas de desenvolvimento,
 arquitetura escalável, segurança, documentação e observabilidade.
@@ -50,16 +49,23 @@ arquitetura escalável, segurança, documentação e observabilidade.
 - Zod
 - Multer
 - Swagger/OpenAPI
+- Jest
+- Supertest
+- Testes automatizados dos endpoints da API
 
 ### Infraestrutura
 
 - Docker
 - Docker Compose
+- AWS Lambda
+- Amazon API Gateway
+- Neon PostgreSQL
 
 ### Observabilidade
 
 - OpenTelemetry
 - Jaeger
+- Grafana
 
 ### Frontend
 
@@ -105,7 +111,6 @@ Principais entidades:
 
 Os relacionamentos são definidos utilizando chaves estrangeiras.
 
-## Como executar o projeto
 
 ### Pré-requisitos
 
@@ -113,6 +118,36 @@ Os relacionamentos são definidos utilizando chaves estrangeiras.
 - Docker
 - Docker Compose
 
+## Como executar
+
+Navegador:
+edu-share-7jb9.vercel.app
+
+Swagger:
+https://5p48xt1yd0.execute-api.us-east-1.amazonaws.com/api-docs
+
+## Como executar localmente
+
+Abrir terminal na pasta raiz
+
+### Backend
+
+cd backend
+
+npm install
+
+docker compose up -d
+
+node server.js
+
+cd frontend
+
+npm install
+
+npm run dev
+
+A aplicação estará disponível em:
+http://localhost:5173
 
 ### Clonar o projeto
 
@@ -129,34 +164,16 @@ node server.js
 A documentação está disponível através do Swagger:
 http://localhost:3000/api-docs
 
-## Observabilidade
+## Testes
 
-A aplicação possui instrumentação utilizando OpenTelemetry.
+O projeto utiliza Jest e Supertest para testes automatizados da API.
 
-Os traces das requisições são enviados para o Jaeger.
+Executar:
 
-Fluxo:
+npm test
 
-Aplicação
-↓
-OpenTelemetry
-↓
-Jaeger
 
-## Deploy Serverless AWS Lambda
 
-A aplicação foi preparada para execução em ambiente serverless utilizando AWS Lambda através do Serverless Framework.
-
-A arquitetura foi adaptada separando a criação da aplicação Express (`app.js`) do servidor local (`server.js`), permitindo que a mesma API seja executada tanto localmente quanto através de uma função Lambda.
-
-Estrutura:
-
-backend/src
-
-- app.js
-- lambda.js
-
-O arquivo `serverless.yml` contém a configuração da função Lambda e API Gateway.
 
 ## Autor
 
