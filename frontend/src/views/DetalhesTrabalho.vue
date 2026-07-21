@@ -116,7 +116,7 @@ onMounted(()=>{
 >
     Arquivo selecionado: {{ nomeArquivo }}
 </p>
-    />
+    
     <p class="text-gray-500 mb-4">
     Arquivos permitidos: .txt .png .jpg .doc/docx .xls/xlsx .ppt/pptx .mp4.
 </p>
