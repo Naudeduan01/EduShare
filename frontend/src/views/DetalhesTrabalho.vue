@@ -6,6 +6,7 @@ const route = useRoute();
 const trabalho = ref(null);
 const arquivos = ref([]);
 const arquivoSelecionado = ref(null);
+const nomeArquivo = ref("");
 const mensagem = ref('');
 async function carregar(){
     const id = route.params.id;
@@ -18,6 +19,9 @@ async function carregar(){
 function selecionarArquivo(event){
     arquivoSelecionado.value =
         event.target.files[0];
+
+    nomeArquivo.value =
+        arquivoSelecionado.value?.name || "";
 }
 async function enviarArquivo(){
     if(!arquivoSelecionado.value){
@@ -43,14 +47,17 @@ async function enviarArquivo(){
         }
     );
     arquivoSelecionado.value = null;
+    nomeArquivo.value = "";
     mensagem.value = "Arquivo enviado com sucesso!";
     await carregar();
 }
 function baixarArquivo(id){
+    function baixarArquivo(id){
     window.open(
-        `http://localhost:3000/arquivos/${id}/download`,
+        `${api.defaults.baseURL}/arquivos/${id}/download`,
         "_blank"
     );
+}
 }
 async function excluirArquivo(id){
 
@@ -89,10 +96,26 @@ onMounted(()=>{
         Arquivos
     </h2>
     <div class="bg-grey shadow rounded p-4 mb-6">
-    <input
-        type="file"
-        @change="selecionarArquivo"
-        class="mb-3"
+    <label
+    for="arquivo"
+    class="inline-block cursor-pointer bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 mb-3"
+>
+    📎 Escolher arquivo
+    </label>
+
+<input
+    id="arquivo"
+    type="file"
+    @change="selecionarArquivo"
+    class="hidden"
+/>
+
+<p
+    v-if="nomeArquivo"
+    class="text-gray-600 mb-3"
+>
+    Arquivo selecionado: {{ nomeArquivo }}
+</p>
     />
     <p class="text-gray-500 mb-4">
     Arquivos permitidos: .txt .png .jpg .doc/docx .xls/xlsx .ppt/pptx .mp4.
