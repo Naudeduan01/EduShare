@@ -5,8 +5,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import DefaultLayout from "../layouts/DefaultLayout.vue";
 import EditarTrabalho from "../views/EditarTrabalho.vue";
 import Trabalhos from "../views/Trabalhos.vue";
-import Login from "../views/Login.vue";
-import Cadastro from "../views/Cadastro.vue";
+import Login from "../views/login.vue";
+import Cadastro from "../views/cadastro.vue";
 import Arquivos from "../views/Arquivos.vue";
 const routes = [
     {
